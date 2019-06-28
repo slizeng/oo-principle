@@ -47,6 +47,8 @@ test {
 }
 
 dependencies {
+    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.9'
+
     testCompile libs.junit5
     testCompile 'org.assertj:assertj-core:3.10.0'
     testCompile 'org.hamcrest:hamcrest-core:2.1'
