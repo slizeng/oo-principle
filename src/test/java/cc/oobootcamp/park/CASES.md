@@ -29,9 +29,3 @@
 - AND a car with plate number which is in the park,
 - WHEN a car leaves successfully,
 - THEN the number of park's available parking spaces should plus one.
-
-- GIVEN a park,
-- AND the park has left parking spaces,
-- AND a car without plate number which is not in the park,
-- WHEN a car arrives and wants to park in,
-- THEN should return succeed and a ticket with plate number,

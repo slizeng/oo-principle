@@ -1,4 +1,4 @@
-package cc.oobootcamp.car;
+package cc.oobootcamp.park;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +9,7 @@ import static org.apache.commons.lang3.StringUtils.isNotEmpty;
 public class Park {
     public static final String FAILED = "failed";
     public static final String SUCCEED = "success";
+
     private static final int EMPTY_SIZE = 0;
 
     private int parkMaxSize;

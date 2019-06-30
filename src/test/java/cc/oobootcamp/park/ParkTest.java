@@ -1,10 +1,10 @@
-package cc.oobootcamp.car;
+package cc.oobootcamp.park;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static cc.oobootcamp.car.Park.FAILED;
-import static cc.oobootcamp.car.Park.SUCCEED;
+import static cc.oobootcamp.park.Park.FAILED;
+import static cc.oobootcamp.park.Park.SUCCEED;
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;
 
