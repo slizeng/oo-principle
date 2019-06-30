@@ -3,14 +3,14 @@ package cc.oobootcamp.park;
 import java.util.Objects;
 
 public class Car {
-    private String carNumber;
+    private String plateNumber;
 
-    public Car(String carNumber) {
-        this.carNumber = carNumber;
+    public Car(String plateNumber) {
+        this.plateNumber = plateNumber;
     }
 
-    public String getCarNumber() {
-        return carNumber;
+    public String getPlateNumber() {
+        return plateNumber;
     }
 
     @Override
@@ -19,11 +19,11 @@ public class Car {
         if (targetCar == null || getClass() != targetCar.getClass()) return false;
         Car car = (Car) targetCar;
 
-        return Objects.equals(carNumber, car.carNumber);
+        return Objects.equals(plateNumber, car.plateNumber);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(carNumber);
+        return Objects.hash(plateNumber);
     }
 }

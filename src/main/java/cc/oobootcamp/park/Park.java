@@ -1,7 +1,8 @@
 package cc.oobootcamp.park;
 
-import java.util.HashSet;
-import java.util.Set;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static java.util.Objects.nonNull;
 import static org.apache.commons.lang3.StringUtils.isNotEmpty;
@@ -13,22 +14,23 @@ public class Park {
     private static final int EMPTY_SIZE = 0;
 
     private int parkMaxSize;
-    private Set<Car> parkingSpaces = new HashSet<>();
+    private Map<String, Car> parkingSpaces = new HashMap<>();
 
     public Park(int parkMaxSize) {
         this.parkMaxSize = parkMaxSize > 0 ? parkMaxSize : EMPTY_SIZE;
     }
 
-    public String applyParking(Car car) {
+    public Ticket applyParking(Car car) {
         if (hasParkingSpaces() && isValidCar(car)) {
-            parkingSpaces.add(car);
-            return car.getCarNumber();
+            parkingSpaces.put(car.getPlateNumber(), car);
+            return new Ticket(car.getPlateNumber());
         }
-        return FAILED;
+
+        return null;
     }
 
-    public String applyLeaving(Car car) {
-        return parkingSpaces.remove(car) ? SUCCEED : FAILED;
+    public String applyLeaving(Ticket ticket) {
+        return nonNull(parkingSpaces.remove(ticket.getPlateNumber())) ? SUCCEED : FAILED;
     }
 
     private boolean hasParkingSpaces() {
@@ -36,6 +38,6 @@ public class Park {
     }
 
     private boolean isValidCar(Car car) {
-        return nonNull(car) && isNotEmpty(car.getCarNumber());
+        return nonNull(car) && isNotEmpty(car.getPlateNumber());
     }
 }

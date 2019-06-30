@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import static cc.oobootcamp.park.Park.FAILED;
 import static cc.oobootcamp.park.Park.SUCCEED;
 import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 
@@ -26,25 +27,25 @@ class ParkTest {
 
     @Test
     void should_return_succeed_and_plate_number_when_a_car_arrives_and_park_is_not_full() {
-        String result = park.applyParking(carOne);
+        Ticket result = park.applyParking(carOne);
 
-        assertThat(result, is(NUMBER_ONE));
+        assertThat(result.getPlateNumber(), is(NUMBER_ONE));
     }
 
     @Test
     void should_return_failed_when_a_car_arrives_and_park_is_full() {
         park.applyParking(carTwo);
 
-        String result = park.applyParking(carOne);
+        Ticket result = park.applyParking(carOne);
 
-        assertThat(result, is(FAILED));
+        assertNull(result);
     }
 
     @Test
     void should_return_succeed_when_a_car_leave_the_park_with_the_correct_car_number() {
-        park.applyParking(carOne);
+        Ticket ticket = park.applyParking(carOne);
 
-        String resultOfLeaving = park.applyLeaving(carOne);
+        String resultOfLeaving = park.applyLeaving(ticket);
 
         assertThat(resultOfLeaving, is(SUCCEED));
     }
@@ -52,37 +53,38 @@ class ParkTest {
     @Test
     void should_return_failed_when_a_car_leaves_with_incorrect_car_number() {
         park.applyParking(carOne);
+        Ticket ticket = new Ticket(carTwo.getPlateNumber());
 
-        String resultOfLeaving = park.applyLeaving(carTwo);
+        String resultOfLeaving = park.applyLeaving(ticket);
         assertThat(resultOfLeaving, is(FAILED));
     }
 
     @Test
     void should_parking_spaces_plus_one_when_a_car_leaves() {
-        park.applyParking(carOne);
-        assertThat(park.applyParking(carTwo), is(FAILED));
+        Ticket ticket = park.applyParking(carOne);
+        assertNull(park.applyParking(carTwo));
 
-        String resultOfLeaving = park.applyLeaving(carOne);
+        String resultOfLeaving = park.applyLeaving(ticket);
         assertThat(resultOfLeaving, is(SUCCEED));
 
-        assertThat(park.applyParking(carTwo), is(carTwo.getCarNumber()));
+        assertThat(park.applyParking(carTwo).getPlateNumber(), is(carTwo.getPlateNumber()));
     }
 
     @Test
     void should_parking_spaces_minus_one_when_a_car_parks() {
-        String resultOfLastSpaceParking = park.applyParking(carOne);
-        String resultOfNotEnoughSpace = park.applyParking(carTwo);
+        Ticket resultOfLastSpaceParking = park.applyParking(carOne);
+        Ticket resultOfNotEnoughSpace = park.applyParking(carTwo);
 
-        assertThat(resultOfLastSpaceParking, is(carOne.getCarNumber()));
-        assertThat(resultOfNotEnoughSpace, is(FAILED));
+        assertThat(resultOfLastSpaceParking.getPlateNumber(), is(carOne.getPlateNumber()));
+        assertNull(resultOfNotEnoughSpace);
     }
 
     @Test
     void should_return_failed_when_a_car_parks_without_valid_plate_number() {
-        String resultOfEmptyString = park.applyParking(new Car(""));
-        String resultOfNull = park.applyParking(null);
+        Ticket resultOfEmptyString = park.applyParking(new Car(""));
+        Ticket resultOfNull = park.applyParking(null);
 
-        assertThat(resultOfEmptyString, is(FAILED));
-        assertThat(resultOfNull, is(FAILED));
+        assertNull(resultOfEmptyString);
+        assertNull(resultOfNull);
     }
 }
