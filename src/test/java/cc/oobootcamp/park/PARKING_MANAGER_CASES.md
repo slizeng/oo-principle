@@ -61,8 +61,8 @@
 ###
 - **GIVEN** a `parking manager` managing a `graduate parking boy`
 - **AND** 1 `car` is parked in `graduate parking boy`'s parking lot
-- **WHEN** `parking manager` asks `graduate parking boy` to pick this car with valid `ticket`
-- **AND** the `car` will be returned
+- **WHEN** `parking manager` manages `graduate parking boy` to pick this car with valid `ticket`
+- **AND** the `car` will be returned by `graduate parking boy`
 
 ###
 - **GIVEN** a `parking manager` managing a `graduate parking boy`
@@ -74,12 +74,6 @@
 - **GIVEN** a `parking manager` managing a `graduate parking boy` and a `smart parking boy`
 - **AND** 1 `car` is parked in `graduate parking boy`'s parking lot
 - **WHEN** `parking manager` manages `smart parking boy` to pick this car with valid `ticket`
-- **AND** the `car` will NOT be returned
-
-###
-- **GIVEN** a `parking manager` managing a `graduate parking boy`
-- **AND** 1 `car` is parked in any parking space
-- **WHEN** `parking manager` manages `graduate parking boy` to pick the `car` with invalid `ticket`
 - **AND** the `car` will NOT be returned
 
 

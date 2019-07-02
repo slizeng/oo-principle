@@ -1,5 +1,6 @@
 package cc.oobootcamp.park;
 
+import cc.oobootcamp.exception.NoMatchedCarException;
 import cc.oobootcamp.exception.NonAvailableParkingSpaceException;
 import cc.oobootcamp.exception.ParkingSpaceIsFullException;
 
@@ -27,6 +28,30 @@ public class ParkingManager extends ParkingBoy {
             return optionalTicketFromSelf.get();
         } else {
             throw new NonAvailableParkingSpaceException();
+        }
+    }
+
+    @Override
+    public Car pick(Ticket ticket) {
+        try {
+            return super.pick(ticket);
+        } catch (NoMatchedCarException exception) {
+            Optional<Car> optionalCar = parkingBoys.stream()
+                    .map(parkingBoy -> {
+                        try {
+                            return parkingBoy.pick(ticket);
+                        } catch (NoMatchedCarException ignored) {
+                            return null;
+                        }
+                    })
+                    .filter(Objects::nonNull)
+                    .findFirst();
+
+            if (optionalCar.isPresent()) {
+                return optionalCar.get();
+            }
+
+            throw new NoMatchedCarException();
         }
     }
 

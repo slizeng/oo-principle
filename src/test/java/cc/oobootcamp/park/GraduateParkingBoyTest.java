@@ -16,6 +16,17 @@ public class GraduateParkingBoyTest {
     private static final String FALSE_PLATE_NUMBER = "PLATE NUMBER FALSE";
     private static final String PLATE_NUMBER = "PLATE NUMBER";
 
+    static List<ParkingLot> buildFullParkingLots() {
+        int numberOfLots = 1;
+        int capacity = 1;
+        return IntStream.range(0, numberOfLots)
+                .mapToObj((index) -> {
+                    ParkingLot parkingLot = new ParkingLot(capacity);
+                    IntStream.range(0, capacity).forEach((i) -> parkingLot.parkCar(new Car(String.valueOf(i))));
+                    return parkingLot;
+                }).collect(Collectors.toList());
+    }
+
     @Test
     void should_return_a_ticket_when_parking_boy_park_a_car_given_a_parking_lot_A_has_higher_order_than_parking_lot_B_and_both_of_them_have_available_space() {
         Car car = new Car(PLATE_NUMBER);
@@ -46,7 +57,7 @@ public class GraduateParkingBoyTest {
     @Test
     void should_not_park_this_car_when_parking_boy_park_a_car_given_two_parking_lots_and_both_have_no_available_space() {
         Car car = new Car(PLATE_NUMBER);
-        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(buildFullParkingLots(2, 2));
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(buildFullParkingLots());
 
         assertThrows(ParkingSpaceIsFullException.class, () -> graduateParkingBoy.park(car));
     }
@@ -77,14 +88,5 @@ public class GraduateParkingBoyTest {
         assertThrows(NoMatchedCarException.class, () ->
                 graduateParkingBoy.pick(new Ticket(FALSE_PLATE_NUMBER))
         );
-    }
-
-    static List<ParkingLot> buildFullParkingLots(int numberOfLots, int capacity) {
-        return IntStream.range(0, numberOfLots)
-                .mapToObj((index) -> {
-                    ParkingLot parkingLot = new ParkingLot(capacity);
-                    IntStream.range(0, capacity).forEach((i) -> parkingLot.parkCar(new Car(String.valueOf(i))));
-                    return parkingLot;
-                }).collect(Collectors.toList());
     }
 }
