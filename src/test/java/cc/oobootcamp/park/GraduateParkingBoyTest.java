@@ -7,11 +7,10 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static java.util.Arrays.asList;
-import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class ParkingBoyTest {
+class GraduateParkingBoyTest {
     private static final String FALSE_PLATE_NUMBER = "PLATE NUMBER FALSE";
     private static final String PLATE_NUMBER = "PLATE NUMBER";
 
@@ -20,9 +19,9 @@ class ParkingBoyTest {
         Car car = new Car(PLATE_NUMBER);
         ParkingLot higherPriorityParkingLot = new ParkingLot(1);
         ParkingLot lowerPriorityParkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
 
-        Ticket ticket = parkingBoy.park(car);
+        Ticket ticket = graduateParkingBoy.park(car);
 
         assertNotNull(ticket);
         assertFalse(higherPriorityParkingLot.hasParkingSpace());
@@ -35,9 +34,9 @@ class ParkingBoyTest {
         ParkingLot higherPriorityParkingLot = new ParkingLot(1);
         higherPriorityParkingLot.parkCar(new Car(FALSE_PLATE_NUMBER));
         ParkingLot lowerPriorityParkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
 
-        Ticket ticket = parkingBoy.park(car);
+        Ticket ticket = graduateParkingBoy.park(car);
 
         assertNotNull(ticket);
     }
@@ -45,9 +44,9 @@ class ParkingBoyTest {
     @Test
     void should_not_park_this_car_when_parking_boy_park_a_car_given_two_parking_lots_and_both_have_no_available_space() {
         Car car = new Car(PLATE_NUMBER);
-        ParkingBoy parkingBoy = new ParkingBoy(buildFullParkingLots(2, 2));
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(buildFullParkingLots(2, 2));
 
-        assertThrows(ParkingSpaceIsFullException.class, () -> parkingBoy.park(car));
+        assertThrows(ParkingSpaceIsFullException.class, () -> graduateParkingBoy.park(car));
     }
 
     @Test
@@ -55,10 +54,10 @@ class ParkingBoyTest {
         Car car = new Car(PLATE_NUMBER);
         ParkingLot higherPriorityParkingLot = new ParkingLot(1);
         ParkingLot lowerPriorityParkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
-        Ticket ticket = parkingBoy.park(car);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
+        Ticket ticket = graduateParkingBoy.park(car);
 
-        Car returnedCar = parkingBoy.pick(ticket);
+        Car returnedCar = graduateParkingBoy.pick(ticket);
 
         assertNotNull(ticket);
         assertEquals(returnedCar, car);
@@ -69,16 +68,16 @@ class ParkingBoyTest {
         Car car = new Car(PLATE_NUMBER);
         ParkingLot higherPriorityParkingLot = new ParkingLot(1);
         ParkingLot lowerPriorityParkingLot = new ParkingLot(1);
-        ParkingBoy parkingBoy = new ParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
-        Ticket ticket = parkingBoy.park(car);
+        GraduateParkingBoy graduateParkingBoy = new GraduateParkingBoy(asList(higherPriorityParkingLot, lowerPriorityParkingLot));
+        Ticket ticket = graduateParkingBoy.park(car);
 
         assertNotNull(ticket);
         assertThrows(NoMatchedCarException.class, () ->
-                parkingBoy.pick(new Ticket(FALSE_PLATE_NUMBER))
+                graduateParkingBoy.pick(new Ticket(FALSE_PLATE_NUMBER))
         );
     }
 
-    private List<ParkingLot> buildFullParkingLots(int numberOfLots, int capacity) {
+    List<ParkingLot> buildFullParkingLots(int numberOfLots, int capacity) {
         return IntStream.range(0, numberOfLots)
                 .mapToObj((index) -> {
                     ParkingLot parkingLot = new ParkingLot(capacity);

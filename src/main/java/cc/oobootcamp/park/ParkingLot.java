@@ -34,6 +34,12 @@ public class ParkingLot {
         return parkingSpace.size() < parkMaxSize;
     }
 
+    int getAvailableSpaceNumber() {
+        int availableSpaceSize = parkMaxSize - parkingSpace.size();
+
+        return availableSpaceSize < 0 ? 0 : availableSpaceSize;
+    }
+
     private boolean isValidCar(Car car) {
         return nonNull(car) && isNotEmpty(car.getPlateNumber());
     }

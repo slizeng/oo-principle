@@ -3,10 +3,10 @@ package cc.oobootcamp.park;
 import java.util.List;
 import java.util.Objects;
 
-public class ParkingBoy {
-    private List<ParkingLot> parkingLots;
+public class GraduateParkingBoy {
+    protected List<ParkingLot> parkingLots;
 
-    public ParkingBoy(List<ParkingLot> parkingLots) {
+    public GraduateParkingBoy(List<ParkingLot> parkingLots) {
         this.parkingLots = parkingLots;
     }
 
