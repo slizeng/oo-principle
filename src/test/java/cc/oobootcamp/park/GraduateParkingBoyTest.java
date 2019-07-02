@@ -12,7 +12,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class GraduateParkingBoyTest {
+public class GraduateParkingBoyTest {
     private static final String FALSE_PLATE_NUMBER = "PLATE NUMBER FALSE";
     private static final String PLATE_NUMBER = "PLATE NUMBER";
 
@@ -79,7 +79,7 @@ class GraduateParkingBoyTest {
         );
     }
 
-    List<ParkingLot> buildFullParkingLots(int numberOfLots, int capacity) {
+    static List<ParkingLot> buildFullParkingLots(int numberOfLots, int capacity) {
         return IntStream.range(0, numberOfLots)
                 .mapToObj((index) -> {
                     ParkingLot parkingLot = new ParkingLot(capacity);
