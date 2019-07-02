@@ -1,30 +1,6 @@
 ## `parking manager` Cases
 
 ###
-- **GIVEN** a `parking manager`
-- **AND** `parking manager` has available parking space
-- **WHEN** `parking manager` parks a car by itself 
-- **THEN** return a `ticket`
-
-###
-- **GIVEN** a `parking manager`
-- **AND** `parking manager` has **NOT** available parking space
-- **WHEN** `parking manager` parks a car by itself 
-- **THEN** return a `ticket`
-
-###
-- **GIVEN** a `parking manager`
-- **AND** a `car` parked in manager's park space
-- **WHEN** `parking manager` picks car with a valid ticket 
-- **THEN** return target car
-
-###
-- **GIVEN** a `parking manager`
-- **AND** a `car` parked in manager's park space
-- **WHEN** `parking manager` picks car with an invalid ticket 
-- **THEN** no car will be returned
-
-###
 - **GIVEN** a `parking manager` managing a `graduate parking boy` and a `smart parking boy`
 - **AND** both `graduate parking boy` and `smart parking boy` currently are able to park only one car
 - **AND** `parking manager` has not available parking space
@@ -76,4 +52,27 @@
 - **WHEN** `parking manager` manages `smart parking boy` to pick this car with valid `ticket`
 - **AND** the `car` will NOT be returned
 
+---
+###
+- **GIVEN** a `parking manager`
+- **AND** `parking manager` has available parking space
+- **WHEN** `parking manager` parks a car by itself 
+- **THEN** return a `ticket`
 
+###
+- **GIVEN** a `parking manager`
+- **AND** `parking manager` has **NOT** available parking space
+- **WHEN** `parking manager` parks a car by itself 
+- **THEN** return a `ticket`
+
+###
+- **GIVEN** a `parking manager`
+- **AND** a `car` parked in manager's park space
+- **WHEN** `parking manager` picks car with a valid ticket 
+- **THEN** return target car
+
+###
+- **GIVEN** a `parking manager`
+- **AND** a `car` parked in manager's park space
+- **WHEN** `parking manager` picks car with an invalid ticket 
+- **THEN** no car will be returned
