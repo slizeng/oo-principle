@@ -27,7 +27,7 @@ public class ParkingLot {
     }
 
     public Car pickCar(Ticket ticket) {
-        return parkingSpace.remove(ticket.getPlateNumber());
+        return nonNull(ticket) ? parkingSpace.remove(ticket.getPlateNumber()) : null;
     }
 
     boolean hasParkingSpace() {

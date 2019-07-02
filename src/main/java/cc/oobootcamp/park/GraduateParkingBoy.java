@@ -1,28 +1,21 @@
 package cc.oobootcamp.park;
 
-import java.util.List;
-import java.util.Objects;
+import cc.oobootcamp.exception.ParkingSpaceIsFullException;
 
-public class GraduateParkingBoy {
-    protected List<ParkingLot> parkingLots;
+import java.util.List;
+
+public class GraduateParkingBoy extends ParkingBoy {
 
     public GraduateParkingBoy(List<ParkingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+        super(parkingLots);
     }
 
+    @Override
     public Ticket park(Car car) {
         return parkingLots.stream()
                 .filter(ParkingLot::hasParkingSpace)
                 .findFirst()
                 .map(parkingLot -> parkingLot.parkCar(car))
                 .orElseThrow(ParkingSpaceIsFullException::new);
-    }
-
-    public Car pick(Ticket ticket) {
-        return parkingLots.stream()
-                .map(parkingLot -> parkingLot.pickCar(ticket))
-                .filter(Objects::nonNull)
-                .findFirst()
-                .orElseThrow(NoMatchedCarException::new);
     }
 }

@@ -1,15 +1,19 @@
 package cc.oobootcamp.park;
 
+import cc.oobootcamp.exception.NonAvailableParkingSpaceException;
+
 import java.util.List;
 
 import static java.util.Comparator.comparingInt;
 
-public class SmartParkingBoy extends GraduateParkingBoy {
+public class SmartParkingBoy extends ParkingBoy {
+
     public SmartParkingBoy(List<ParkingLot> parkingLots) {
         super(parkingLots);
     }
 
-    public Ticket smartPark(Car car) throws RuntimeException {
+    @Override
+    public Ticket park(Car car) {
         ParkingLot parkingLot = parkingLots.stream()
                 .filter(ParkingLot::hasParkingSpace)
                 .max((comparingInt(ParkingLot::getAvailableSpaceNumber)))
