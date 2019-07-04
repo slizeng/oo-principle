@@ -1,4 +1,4 @@
-## `parking manager` Cases
+## Parking manager Cases
 
 ###
 - **GIVEN** a `parking manager` managing a `graduate parking boy` and a `smart parking boy`

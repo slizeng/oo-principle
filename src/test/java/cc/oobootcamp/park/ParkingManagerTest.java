@@ -134,7 +134,6 @@ class ParkingManagerTest {
         assertThrows(NoMatchedCarException.class, () -> smartParkingBoy.pick(ticket));
     }
 
-
     private List<ParkingLot> buildEmptyParkingLots() {
         return singletonList(new ParkingLot(1));
     }

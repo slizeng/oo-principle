@@ -8,11 +8,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class ParkingManager extends ParkingBoy {
+public class ParkingManager {
+    private List<ParkingLot> parkingLots;
     private List<ParkingBoy> parkingBoys;
 
     public ParkingManager(List<ParkingLot> parkingLots, List<ParkingBoy> parkingBoys) {
-        super(parkingLots);
+        this.parkingLots = parkingLots;
         this.parkingBoys = parkingBoys;
     }
 
@@ -24,35 +25,48 @@ public class ParkingManager extends ParkingBoy {
         }
 
         Optional<Ticket> optionalTicketFromSelf = parkBySelf(car);
+
         if (optionalTicketFromSelf.isPresent()) {
             return optionalTicketFromSelf.get();
-        } else {
-            throw new NonAvailableParkingSpaceException();
         }
+
+        throw new NonAvailableParkingSpaceException();
     }
 
-    @Override
     public Car pick(Ticket ticket) {
-        try {
-            return super.pick(ticket);
-        } catch (NoMatchedCarException exception) {
-            Optional<Car> optionalCar = parkingBoys.stream()
-                    .map(parkingBoy -> {
-                        try {
-                            return parkingBoy.pick(ticket);
-                        } catch (NoMatchedCarException ignored) {
-                            return null;
-                        }
-                    })
-                    .filter(Objects::nonNull)
-                    .findFirst();
+        Optional<Car> pickedCarBySelf = pickBySelf(ticket);
 
-            if (optionalCar.isPresent()) {
-                return optionalCar.get();
-            }
-
-            throw new NoMatchedCarException();
+        if (pickedCarBySelf.isPresent()) {
+            return pickedCarBySelf.get();
         }
+
+        Optional<Car> optionalCar = pickByParkingBoys(ticket);
+
+        if (optionalCar.isPresent()) {
+            return optionalCar.get();
+        }
+
+        throw new NoMatchedCarException();
+    }
+
+    private Optional<Car> pickBySelf(Ticket ticket) {
+        return parkingLots.stream()
+                .map(parkingLot -> parkingLot.pickCar(ticket))
+                .filter(Objects::nonNull)
+                .findFirst();
+    }
+
+    private Optional<Car> pickByParkingBoys(Ticket ticket) {
+        return parkingBoys.stream()
+                .map(parkingBoy -> {
+                    try {
+                        return parkingBoy.pick(ticket);
+                    } catch (NoMatchedCarException ignored) {
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .findFirst();
     }
 
     private Optional<Ticket> parkBySelf(Car car) {
